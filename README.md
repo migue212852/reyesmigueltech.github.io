@@ -12,13 +12,12 @@ Destino previsto: https://github.com/migue212852/reyesmigueltech.github.io
 
 > **Repositorio público:** podrá clonarse y descargarse completo. GitHub Pages publicará solo los archivos del sitio y los PDFs/presentaciones autorizados, pero esto no oculta el código almacenado en GitHub.
 
-1. Descomprimí el ZIP y entrá a `reyesmigueltech-site`.
-2. Subí **todo su contenido, incluidos los archivos ocultos y la carpeta `.github`**, a la **raíz** de la rama `main` del repositorio. No subas la carpeta contenedora, solamente su contenido. Esto sustituye a la página antigua.
-3. El workflow intenta habilitar GitHub Pages automáticamente; el repositorio debe ser público o tener un plan que admita Pages desde repositorios privados.
-4. El archivo `.github/workflows/deploy.yml` publica al hacer `push` a `main` solo las páginas y recursos necesarios, junto con archivos PDF y presentaciones autorizados. También se puede ejecutar desde **Actions**.
-5. Verificá la URL pública indicada al inicio.
+1. En GitHub, abrí **Settings → General → Danger Zone → Change repository visibility** y cambiá el repositorio a **Public**. Esto hará público el código fuente y el historial Git: cualquiera podrá verlos, clonarlos y descargarlos.
+2. En **Settings → Pages → Build and deployment**, elegí **Source: GitHub Actions**. El workflow no puede activar Pages por sí mismo porque GitHub no concede ese permiso al token de Actions.
+3. El archivo `.github/workflows/deploy.yml` publica al hacer `push` a `main` solo las páginas y recursos necesarios, junto con archivos PDF y presentaciones autorizados. También se puede ejecutar desde **Actions**.
+4. Verificá la URL pública indicada al inicio.
 
-Si GitHub no permite arrastrar carpetas ocultas desde el navegador, utilizá `git` o GitHub Desktop. No configures Pages para publicar la rama `main` desde `/ (root)`: eso expondría también archivos que el workflow excluye del sitio.
+No configures Pages para publicar la rama `main` desde `/ (root)`: eso expondría también archivos que el workflow excluye del sitio.
 
 ### Actualizar desde una computadora
 
