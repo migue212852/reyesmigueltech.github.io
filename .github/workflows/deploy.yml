@@ -1,0 +1,55 @@
+name: Deploy static site to GitHub Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Stage public site
+        run: |
+          site="$RUNNER_TEMP/public-site"
+          mkdir -p "$site/assets/data" "$site/docs"
+          cp ./*.html "$site/"
+          cp .nojekyll "$site/"
+          cp -R assets/css assets/img assets/js "$site/assets/"
+          cp assets/data/content.json "$site/assets/data/"
+
+          while IFS= read -r -d '' file; do
+            mkdir -p "$site/$(dirname "$file")"
+            cp "$file" "$site/$file"
+          done < <(find research -type f -name '*.html' -print0)
+
+          while IFS= read -r -d '' file; do
+            mkdir -p "$site/$(dirname "$file")"
+            cp "$file" "$site/$file"
+          done < <(find docs -type f \( \
+            -iname '*.pdf' -o \
+            -iname '*.ppt' -o \
+            -iname '*.pptx' -o \
+            -iname '*.pps' -o \
+            -iname '*.ppsx' -o \
+            -iname '*.odp' \
+          \) -print0)
+      - name: Upload public site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/public-site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
