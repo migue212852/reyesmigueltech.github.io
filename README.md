@@ -2,21 +2,15 @@
 
 Sitio multipágina para GitHub Pages: **portada original de Canva**, red de nodos y curvas animadas, navegación con menús desplegables y páginas específicas para CV, Docencia, Investigación, Intereses, Divulgación, Portfolio, Publicaciones, Conferencias y Contacto.
 
-## Publicación en GitHub Pages
+## Publicación segura de documentos
 
-Destino previsto: https://github.com/migue212852/reyesmigueltech.github.io
+El repositorio contiene el código fuente del sitio y debe configurarse como **privado** para impedir que otras personas clonen o descarguen su estructura. En GitHub, cambiá la visibilidad desde **Settings → General → Danger Zone → Change repository visibility**.
 
-**URL pública esperada:** https://migue212852.github.io/reyesmigueltech.github.io/
+GitHub Pages debe usar **Settings → Pages → Build and deployment → Source: GitHub Actions**. No configures publicación directa desde una rama. El workflow `.github/workflows/deploy.yml` publica únicamente archivos dentro de `docs/` con extensiones PDF, PPT, PPTX, PPTM, PPS, PPSX u ODP. El código HTML, CSS, JavaScript, README y otros archivos del repositorio no se incluyen en el sitio público.
 
-> El nombre del repositorio no coincide exactamente con `migue212852.github.io`, por lo que GitHub lo trata como **sitio de proyecto**. Todos los enlaces del sitio son relativos y funcionan bajo ese prefijo.
+Los documentos publicados se descargan mediante sus enlaces directos, por ejemplo `https://migue212852.github.io/reyesmigueltech.github.io/docs/cv/CV_Miguel_Reyes.pdf`. No hay página índice; que la raíz del sitio responda 404 es esperado. Los documentos publicados son públicos y cualquier persona con el enlace podrá descargarlos. Se necesita un plan de GitHub que permita publicar Pages desde un repositorio privado; si no está disponible en la cuenta, alojá los documentos en un repositorio público separado que contenga únicamente esos archivos.
 
-1. Descomprimí el ZIP y entrá a `reyesmigueltech-site`.
-2. Subí **todo su contenido, incluidos los archivos ocultos y la carpeta `.github`**, a la **raíz** de la rama `main` del repositorio. No subas la carpeta contenedora, solamente su contenido. Esto sustituye a la página antigua.
-3. En GitHub elegí **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-4. El archivo `.github/workflows/deploy.yml` publica el sitio al hacer `push` a `main`. Si deseás ejecutar manualmente, podés hacerlo en **Actions**.
-5. Verificá la URL pública indicada al inicio.
-
-Si GitHub no permite arrastrar carpetas ocultas desde el navegador, utilizá `git` o GitHub Desktop. Alternativamente configurá Pages para publicar la rama `main` desde `/ (root)`; esa alternativa no necesita el workflow, pero no selecciones simultáneamente ambas fuentes.
+El workflow se ejecuta al hacer `push` a `main` o manualmente desde **Actions**. Si todavía no hay PDFs ni presentaciones en `docs/`, el despliegue falla intencionalmente en vez de publicar otros archivos.
 
 ### Actualizar desde una computadora
 
