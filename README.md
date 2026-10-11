@@ -1,23 +1,19 @@
 # Reyes Miguel Tech — sitio profesional v2
 
-Sitio multipágina para GitHub Pages: **portada original de Canva**, red de nodos y curvas animadas, navegación con menús desplegables y páginas específicas para CV, Docencia, Investigación, Intereses, Divulgación, Portfolio, Publicaciones, Conferencias y Contacto.
+Código fuente privado de un sitio multipágina: **portada original de Canva**, red de nodos y curvas animadas, navegación con menús desplegables y páginas específicas para CV, Docencia, Investigación, Intereses, Divulgación, Portfolio, Publicaciones, Conferencias y Contacto. El sitio no está publicado.
 
-## Publicación segura de documentos
+## Acceso público solo a documentos
 
-El repositorio contiene el código fuente del sitio y debe configurarse como **privado** para impedir que otras personas clonen o descarguen su estructura. En GitHub, cambiá la visibilidad desde **Settings → General → Danger Zone → Change repository visibility**.
+Este repositorio contiene el código fuente y debe permanecer **privado**. El sitio HTML no se publica: la cuenta no permite activar GitHub Pages para este repositorio privado.
 
-GitHub Pages debe usar **Settings → Pages → Build and deployment → Source: GitHub Actions**. No configures publicación directa desde una rama. El workflow `.github/workflows/deploy.yml` publica únicamente archivos dentro de `docs/` con extensiones PDF, PPT, PPTX, PPTM, PPS, PPSX u ODP. El código HTML, CSS, JavaScript, README y otros archivos del repositorio no se incluyen en el sitio público.
-
-Los documentos publicados se descargan mediante sus enlaces directos, por ejemplo `https://migue212852.github.io/reyesmigueltech.github.io/docs/cv/CV_Miguel_Reyes.pdf`. No hay página índice; que la raíz del sitio responda 404 es esperado. Los documentos publicados son públicos y cualquier persona con el enlace podrá descargarlos. Se necesita un plan de GitHub que permita publicar Pages desde un repositorio privado; si no está disponible en la cuenta, alojá los documentos en un repositorio público separado que contenga únicamente esos archivos.
-
-El workflow se ejecuta al hacer `push` a `main` o manualmente desde **Actions**. Si todavía no hay PDFs ni presentaciones en `docs/`, el despliegue falla intencionalmente en vez de publicar otros archivos.
+Para compartir materiales, creá un repositorio público separado (por ejemplo, `reyesmigueltech-recursos`) y cargá allí únicamente PDFs y presentaciones autorizados. No agregues código, datos privados ni documentación interna. Cada archivo tendrá un enlace directo similar a `https://raw.githubusercontent.com/migue212852/reyesmigueltech-recursos/main/docs/cv/CV_Miguel_Reyes.pdf`. Cualquiera podrá descargar los archivos de ese repositorio público; no se expondrá el código fuente de este proyecto. Todavía no hay PDFs ni presentaciones en este repositorio, así que no existen enlaces públicos a documentos hasta que se carguen en el repositorio separado.
 
 ### Actualizar desde una computadora
 
 ```bash
-# En la carpeta de tu repositorio local, una vez copiados los archivos:
+# En la carpeta de este repositorio privado:
 git add -A
-git commit -m "Rediseño Canva y páginas independientes"
+git commit -m "Update private source"
 git push origin main
 ```
 
@@ -49,31 +45,30 @@ reyesmigueltech-site/
 │   ├── teaching/
 │   ├── conferencias/
 │   └── publicaciones/
-├── .github/workflows/deploy.yml
 ├── .nojekyll
 └── README.md
 ```
 
 ## Cómo agregar archivos sin modificar HTML
 
-El sitio **no necesita WordPress, backend ni Node.js**. Toda la información editable reside en `assets/data/content.json`. Las páginas leen ese archivo por HTTP cuando se abren.
+El sitio **no necesita WordPress, backend ni Node.js**. Toda la información editable reside en `assets/data/content.json`. Las páginas leen ese archivo por HTTP cuando se abren. Estas instrucciones describen la fuente del sitio y la vista local; no publican el sitio ni sus archivos. Para compartir un documento, cargalo solo en el repositorio público separado y usá su URL directa `raw.githubusercontent.com`.
 
 ### CV
 
-1. Guardá el PDF en `docs/cv/CV_Miguel_Reyes.pdf`.
-2. En el objeto `profile` escribí `"cvPdf": "docs/cv/CV_Miguel_Reyes.pdf"`.
-3. La descarga aparecerá automáticamente en `cv.html`.
+1. Guardá el PDF en `docs/cv/CV_Miguel_Reyes.pdf` del repositorio público de recursos.
+2. En el objeto `profile` escribí `"cvPdf": "https://raw.githubusercontent.com/migue212852/reyesmigueltech-recursos/main/docs/cv/CV_Miguel_Reyes.pdf"`.
+3. La descarga aparecerá en `cv.html` al usar el sitio localmente.
 
 ### Teaching (materiales PDF)
 
-Guardá tus archivos en `docs/teaching/` y agregá al array `teaching` un objeto como:
+Guardá los archivos autorizados en `docs/teaching/` del repositorio público de recursos y agregá al array `teaching` un objeto con su URL directa, por ejemplo:
 
 ```json
 {
   "title": "Título de material real",
   "category": "Apuntes",
   "description": "Descripción del documento",
-  "pdf": "docs/teaching/nombre-del-documento.pdf"
+  "pdf": "https://raw.githubusercontent.com/migue212852/reyesmigueltech-recursos/main/docs/teaching/nombre-del-documento.pdf"
 }
 ```
 
@@ -88,7 +83,7 @@ Categorías filtrables: `Apuntes`, `Guías`, `Presentaciones`, `Ejercicios`. Los
   "year": "2026",
   "event": "Nombre real del evento",
   "description": "Una breve reseña",
-  "pdf": "docs/conferencias/archivo-real.pdf"
+  "pdf": "https://raw.githubusercontent.com/migue212852/reyesmigueltech-recursos/main/docs/conferencias/archivo-real.pdf"
 }
 ```
 
@@ -127,7 +122,7 @@ En `divulgacion` guardá objetos del mismo formato que los del portfolio o las c
 
 En `profile.email` completá un correo real. Si queda vacío, **no aparece un correo inventado**.
 
-> **No subir información sensible:** los repositorios de GitHub Pages son públicos, así como todo PDF, script e imagen añadidos al sitio. Para datos clínicos, emplear únicamente datos con autorización y aptos para publicación.
+> **No subir información sensible:** todo archivo cargado al repositorio público de recursos será accesible y descargable por cualquiera. Para datos clínicos, emplear únicamente datos con autorización y aptos para publicación.
 
 ## La portada y la animación
 
@@ -156,4 +151,4 @@ Abrí http://localhost:8000/ y probá los enlaces. No uses el protocolo `file://
 - Enlaces externos HTTPS y `rel="noopener noreferrer"`.
 - No se inventan publicaciones, títulos, instituciones ni resultados; las listas vacías muestran una invitación a cargar datos reales.
 
-Archivos desarrollados para uso y edición directa en GitHub Pages.
+El sitio se puede probar localmente, pero no se publica desde este repositorio privado. Los únicos archivos públicos deben estar en el repositorio separado de recursos.
